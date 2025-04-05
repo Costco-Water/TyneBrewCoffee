@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('Failed to upload image: ' . error_get_last()['message']);
         }
 
-        $imageUrl = '/L5SW/Callum/' . $targetFile;
+        $imageUrl = '/' . $targetFile;
 
         $conn = $db->connect();
         $stmt = $conn->prepare("
