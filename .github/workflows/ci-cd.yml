@@ -1,0 +1,54 @@
+name: 🚀 CI/CD Pipeline for TyneBrewCoffee
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚚 Checkout repository
+      uses: actions/checkout@v4
+
+    # 1. HTML Lint (install htmlhint and run)
+    - name: 🧪 Lint HTML
+      run: |
+        npm install -g htmlhint
+        htmlhint **/*.html
+
+    # 2. CSS Lint (install stylelint and run)
+    - name: 🧪 Lint CSS
+      run: |
+        npm install -g stylelint stylelint-config-standard
+        echo '{}' > .stylelintrc.json
+        stylelint "**/*.css"
+
+    # 3. PHP Syntax Check
+    - name: 🧪 Check PHP syntax
+      run: |
+        find . -name "*.php" -exec php -l {} \;
+
+    # 4. Check for key file
+    - name: 🧪 Check index.html or index.php exists
+      run: |
+        if [ ! -f index.html ] && [ ! -f index.php ]; then
+          echo "❌ index.html or index.php missing"
+          exit 1
+        fi
+
+    # 5. Dummy Test
+    - name: ✅ Dummy test
+      run: echo "Dummy test passed"
+
+    # FTP Deploy only if all tests pass
+    - name: 📂 Deploy via FTP
+      if: success()
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /public_html/L5SW/Callum/
