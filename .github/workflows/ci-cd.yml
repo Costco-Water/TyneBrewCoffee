@@ -19,11 +19,18 @@ jobs:
         npm install -g htmlhint
         htmlhint **/*.html
 
-    # 2. CSS Lint (install stylelint and run)
+    # 2. CSS Lint (install stylelint and run with config)
     - name: 🧪 Lint CSS
       run: |
         npm install -g stylelint stylelint-config-standard
-        echo '{}' > .stylelintrc.json
+        echo '{
+          "extends": "stylelint-config-standard",
+          "rules": {
+            "block-no-empty": true,
+            "color-no-invalid-hex": true,
+            "declaration-block-no-duplicate-properties": true
+          }
+        }' > .stylelintrc.json
         stylelint "**/*.css"
 
     # 3. PHP Syntax Check
