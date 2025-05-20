@@ -16,7 +16,7 @@ $csrf_token = generateCSRFToken();
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-brand">
-            <a href="index.php">Tyne Brew Coffeeee</a>
+            <a href="index.php">Tyne Brew Coffee</a>
         </div>
         
         <div class="nav-links">
