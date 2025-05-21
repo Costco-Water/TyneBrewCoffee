@@ -13,13 +13,13 @@ jobs:
     - name: 🚚 Checkout repository
       uses: actions/checkout@v4
 
-    # 1. HTML Lint (install htmlhint and run)
+    
     - name: 🧪 Lint HTML
       run: |
         npm install -g htmlhint
         htmlhint **/*.html
 
-    # 2. CSS Lint (light config)
+    
     - name: 🧪 Lint CSS (basic rules)
       run: |
         npm install -g stylelint
@@ -32,12 +32,12 @@ jobs:
         }' > .stylelintrc.json
         stylelint "**/*.css" || echo "Stylelint completed with warnings"
 
-    # 3. PHP Syntax Check
+    
     - name: 🧪 Check PHP syntax
       run: |
         find . -name "*.php" -exec php -l {} \;
 
-    # 4. Check for key file
+    
     - name: 🧪 Check index.html or index.php exists
       run: |
         if [ ! -f index.html ] && [ ! -f index.php ]; then
@@ -45,11 +45,11 @@ jobs:
           exit 1
         fi
 
-    # 5. Dummy Test
+    
     - name: ✅ Dummy test
       run: echo "Dummy test passed"
 
-    # FTP Deploy only if all tests pass
+    
     - name: 📂 Deploy via FTP
       if: success()
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
