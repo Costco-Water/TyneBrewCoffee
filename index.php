@@ -1,3 +1,6 @@
+<!-- Triggering CI pipeline for assignment evidence -->
+
+
 <?php
 # Product listing page. #
 # Security Measures. #
